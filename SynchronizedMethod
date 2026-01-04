@@ -1,0 +1,19 @@
+package SynchronizedMethodPackage;
+public class BookingSystem{
+    private int seatManager;
+    private boolean checkAvailability;
+    BookingSystem(int seatManager,boolean checkAvailability)
+    {
+        this.seatManager=seatManager;
+        this.checkAvailability=checkAvailability;
+    }
+    int getSeatManager()
+    {
+        return seatManager;
+    }
+    boolean getCheckAvailability()
+    {
+      return checkAvailability;
+    }
+}
+    
