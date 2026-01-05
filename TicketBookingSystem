@@ -1,0 +1,89 @@
+package SynchronizedMethodPackage;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.stream.Collectors;
+class TicketBookingSystem{
+    public static ArrayList<BookingSystem> getBookingSystems()
+    {
+        BookingSystem bs1=new BookingSystem(1,true);
+        BookingSystem bs2=new BookingSystem(2,true);
+        BookingSystem bs3=new BookingSystem(3,true);
+        BookingSystem bs4=new BookingSystem(4,true);
+        BookingSystem bs5=new BookingSystem(5,true);
+        BookingSystem bs6=new BookingSystem(6,false);
+        BookingSystem bs7=new BookingSystem(7,true);
+        BookingSystem bs8=new BookingSystem(8,true);
+        BookingSystem bs9=new BookingSystem(9,true);
+        BookingSystem bs10=new BookingSystem(10,true);
+        BookingSystem bs11=new BookingSystem(11,true);
+        BookingSystem bs12=new BookingSystem(12,true);
+        BookingSystem bs13=new BookingSystem(13,false);
+        BookingSystem bs14=new BookingSystem(14,true);
+        BookingSystem bs15=new BookingSystem(15,false);
+        BookingSystem bs16=new BookingSystem(16,true);
+        BookingSystem bs17=new BookingSystem(17,true);
+        BookingSystem bs18=new BookingSystem(18,false);
+        BookingSystem bs19=new BookingSystem(19,true);
+        BookingSystem bs20=new BookingSystem(20,false);
+        BookingSystem bs21=new BookingSystem(21,true);
+        BookingSystem bs22=new BookingSystem(22,true);
+        BookingSystem bs23=new BookingSystem(23,false);
+        BookingSystem bs24=new BookingSystem(24,true);
+        BookingSystem bs25=new BookingSystem(25,true);
+        BookingSystem bs26=new BookingSystem(26,true);
+        ArrayList<BookingSystem> bookingSystems=new ArrayList<>();
+        bookingSystems.add(bs1);
+        bookingSystems.add(bs2);
+        bookingSystems.add(bs3);
+        bookingSystems.add(bs4);
+        bookingSystems.add(bs5);
+        bookingSystems.add(bs6);
+        bookingSystems.add(bs7);
+        bookingSystems.add(bs8);
+        bookingSystems.add(bs9);
+        bookingSystems.add(bs10);
+        bookingSystems.add(bs11);
+        bookingSystems.add(bs12);
+        bookingSystems.add(bs13);
+        bookingSystems.add(bs14);
+        bookingSystems.add(bs15);
+        bookingSystems.add(bs16);
+        bookingSystems.add(bs17);
+        bookingSystems.add(bs18);
+        bookingSystems.add(bs19);
+        bookingSystems.add(bs20);
+        bookingSystems.add(bs21);
+        bookingSystems.add(bs22);
+        bookingSystems.add(bs23);
+        bookingSystems.add(bs24);
+        bookingSystems.add(bs25);
+        bookingSystems.add(bs26);
+        return bookingSystems;
+    }
+    public synchronized void bookingSystem(int bookingSystemId)
+    {
+        // Implementation for synchronized booking system
+        ArrayList<BookingSystem> isAvailable=getBookingSystems();
+        Map<Integer, Boolean> isAvailableMap = isAvailable.stream()
+                .collect(Collectors.toMap(BookingSystem::getSeatManager, BookingSystem::getCheckAvailability));
+        // Process the booking system with the given ID
+        System.out.println("Booking system " + bookingSystemId + " is available: " + isAvailableMap.get(bookingSystemId));
+    }
+}
+public class TicketDataBase{
+    public static void main(String[] args)
+    {
+        TicketBookingSystem tbs=new TicketBookingSystem();
+        Thread t1=new Thread(()->
+            tbs.bookingSystem(1));
+        t1.start();
+        try{
+            t1.join();
+        }catch(InterruptedException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        Thread t2=new Thread(()->tbs.bookingSystem(23));
+        t2.start();
+    }
+}
